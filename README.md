@@ -21,3 +21,8 @@ How to make it work
 - The ID column is the member id on slack for this person
     - If the id is present it will actually @ the person
     - So go to the slack profile click the dots and copy member id for each person on the list
+
+
+The output is this message:
+
+![IMG_5291](https://github.com/mtrejo0/slackChoresBot/assets/43509746/8307dd05-5022-4d17-8849-03efbfa61755)
