@@ -1,5 +1,5 @@
 // Global Variables
-var SPREADSHEET_ID = "10rTC5Eh4-PMLbYF_vCa-Jl1448kEBwDVz0rkJqPRKAM"; // Update this with your Spreadsheet ID
+var SPREADSHEET_ID = "XXX"; // Update this with your Spreadsheet ID
 var RANGE = "A1:D27"; // Update this with your desired range
 var SLACK_WEBHOOK_URL = "https://hooks.slack.com/services/XXX/XXX/XXX"; // Your Slack Webhook URL
 
