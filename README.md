@@ -1,7 +1,8 @@
 How to make it work
 
 - Copy [this spreadsheet](https://docs.google.com/spreadsheets/d/10rTC5Eh4-PMLbYF_vCa-Jl1448kEBwDVz0rkJqPRKAM/edit?usp=sharing) into your organizations drive
-    - Its a list of chores and who is assigned and if they did it
+    - Its a list of chores, who is assigned, completed, and slack_id
+    - And a list of members to slack_ids for custom mentions
 - Make slack app for your workspace
     - https://api.slack.com/start/quickstart
 - Then invite the app to the workspace
