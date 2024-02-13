@@ -1,6 +1,7 @@
 // Global Variables
 var SPREADSHEET_ID = "XXX";
 var SLACK_WEBHOOK_URL = "https://hooks.slack.com/services/XXX/XXX/XXX";
+var SLACK_CHANNEL = "#chores";
 
 /**
  * Reads tasks from the spreadsheet and sends a formatted message to a Slack channel.
@@ -32,7 +33,7 @@ function readSheetAndSendToSlack() {
 function sendSlackMsg(message) {
 
   message = "Chores left to be done:\n"+message
-  var payload = JSON.stringify({ text: message, channel: "#chores" });
+  var payload = JSON.stringify({ text: message, channel: SLACK_CHANNEL });
   var options = {
     method: "post",
     contentType: "application/json",
