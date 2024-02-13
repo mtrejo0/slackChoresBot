@@ -25,4 +25,4 @@ How to make it work
 
 The output is this message:
 
-![IMG_5291](https://github.com/mtrejo0/slackChoresBot/assets/43509746/8307dd05-5022-4d17-8849-03efbfa61755)
+![IMG_5312](https://github.com/mtrejo0/slackChoresBot/assets/43509746/19e44791-f967-405a-989b-0c1405b160b8)
