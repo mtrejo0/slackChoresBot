@@ -1,60 +1,45 @@
 // Global Variables
-var SPREADSHEET_ID = "XXX"; // Update this with your Spreadsheet ID
-var RANGE = "A1:D27"; // Update this with your desired range
-var SLACK_WEBHOOK_URL = "https://hooks.slack.com/services/XXX/XXX/XXX"; // Your Slack Webhook URL
+var SPREADSHEET_ID = "XXX";
+var SLACK_WEBHOOK_URL = "https://hooks.slack.com/services/XXX/XXX/XXX";
 
+/**
+ * Reads tasks from the spreadsheet and sends a formatted message to a Slack channel.
+ */
 function readSheetAndSendToSlack() {
   var sheet = SpreadsheetApp.openById(SPREADSHEET_ID).getActiveSheet();
-  var data = sheet.getRange(RANGE).getValues();
-  
+  var lastRow = Math.min(sheet.getLastRow(), 100); // Ensures no more than 100 rows are considered
+  var data = sheet.getRange("A1:D" + lastRow).getValues();
 
-  console.log(data);
-  var rows = data.slice(1); // Exclude header row
-  var msg = "";
-
-  // Filter and format rows for message
-  for (var i = 0; i < rows.length; i++) {
-    var row = rows[i];
-    if (row[3] == '') { // Assuming you want to filter out rows similar to your Python condition
-      var line = "";
-      if (row[2] == "") {
-        var chore = row[0];
-        var name = row[1];
-        line = chore + " - " + name;
-      } else {
-        var chore = row[0];
-        var name = row[1];
-        var id = row[2];
-        line = chore + " - <@" + id + ">";
+  var message = data.slice(1) // Excludes header row
+    .filter(row => row[0] !== "") // Excludes rows where the first column is empty
+    .reduce((acc, [chore, name, id, status]) => {
+      if (status === '') { // Includes only tasks with an empty status
+        acc += id ? `${chore} - <@${id}>` : `${chore} - ${name}`;
+        acc += "\n"; // Adds a new line for each task
       }
-      console.log(msg);
-      console.log(line);
-      msg += line + "\n";
-    }
-  }
-  console.log(msg);
-  if (msg !== "") {
-    sendSlackMsg(msg);
+      return acc;
+    }, "");
+
+  if (message) {
+    sendSlackMsg(message);
   }
 }
 
+/**
+ * Sends a message to a specified Slack channel.
+ * @param {string} message The message to be sent.
+ */
 function sendSlackMsg(message) {
-  var payload = JSON.stringify({
-    "text": message,
-    "channel": "#chores", // Update this if you have a specific channel in mind
-  });
 
+  message = "Chores left to be done:\n"+message
+  var payload = JSON.stringify({ text: message, channel: "#chores" });
   var options = {
-    "method": "post",
-    "contentType": "application/json",
-    "payload": payload,
-    "muteHttpExceptions": true // Useful for debugging
+    method: "post",
+    contentType: "application/json",
+    payload: payload,
+    muteHttpExceptions: true
   };
 
   var response = UrlFetchApp.fetch(SLACK_WEBHOOK_URL, options);
-  if (response.getResponseCode() == 200) {
-    Logger.log("Message sent successfully!");
-  } else {
-    Logger.log("Failed to send message. Status code: " + response.getResponseCode() + ", Response: " + response.getContentText());
-  }
+  Logger.log(response.getResponseCode() == 200 ? "Message sent successfully!" : "Failed to send message.");
 }
