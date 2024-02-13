@@ -12,7 +12,6 @@ How to make it work
 - Then go to google sheets > extensions > apps scripts
     - Paste in the code below with the desired
         - SPREADSHEET_ID from spresheet url
-        - RANGE its 27 rn bc theres 27 brothers with me as a test but this can change props if you can modify this so that this is better
         - SLACK_WEBHOOK_URL from above
         - channel name - make a chores channel or use the one you already use
 - Press run to see if it works
